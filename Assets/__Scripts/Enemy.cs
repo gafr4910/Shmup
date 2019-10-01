@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
         public float fireRate = 0.3f; //Seconds/shot (unused)
         public float health = 10;
         public int score = 100; //earned for destroying this
-        private BoundsCheck bndCheck;
+        protected BoundsCheck bndCheck;
         void Awake()
         {
             bndCheck = GetComponent<BoundsCheck>();
