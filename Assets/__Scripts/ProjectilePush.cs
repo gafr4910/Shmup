@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class ProjectilePush : MonoBehaviour
 {
     private BoundsCheck bndCheck;
     private Renderer rend;
