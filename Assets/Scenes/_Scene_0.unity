@@ -168,6 +168,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: collar
+      value: 
+      objectReference: {fileID: 335779203}
     - target: {fileID: 3164142700797615970, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -223,16 +233,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: _type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: collar
-      value: 
-      objectReference: {fileID: 335779203}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcdb3d4b08d4a4abb867017d9c1f43a0, type: 3}
 --- !u!1 &204412441
@@ -466,6 +466,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon_3
       objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: collar
+      value: 
+      objectReference: {fileID: 1068133479}
     - target: {fileID: 3164142700797615970, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -521,16 +531,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: _type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: collar
-      value: 
-      objectReference: {fileID: 1068133479}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcdb3d4b08d4a4abb867017d9c1f43a0, type: 3}
 --- !u!114 &766930423 stripped
@@ -563,6 +563,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon_4
       objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: collar
+      value: 
+      objectReference: {fileID: 2076648678}
     - target: {fileID: 3164142700797615970, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -618,16 +628,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: _type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: collar
-      value: 
-      objectReference: {fileID: 2076648678}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcdb3d4b08d4a4abb867017d9c1f43a0, type: 3}
 --- !u!1 &1068133479 stripped
@@ -781,19 +781,19 @@ MonoBehaviour:
     delayBetweenShots: 0
     velocity: 0
   - type: 7
-    letter: O
+    letter: F
     color: {r: 1, g: 0, b: 0, a: 1}
     projectilePrefab: {fileID: 1027435980238517086, guid: 1de92b6492dd64bbd983b3e7807e15ae,
       type: 3}
     projectileColor: {r: 1, g: 0, b: 0, a: 1}
-    damageOnHit: 0
+    damageOnHit: 2
     pushOnHit: 1
     continuousDamage: 0
-    delayBetweenShots: 0
+    delayBetweenShots: 0.4
     velocity: 40
   prefabPowerUp: {fileID: 4884892186835549992, guid: 7a9453e19175d45728169a650bf10f56,
     type: 3}
-  powerUpFrequency: 01000000010000000200000006000000
+  powerUpFrequency: 010000000100000002000000060000000700000007000000
 --- !u!114 &1073965014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,7 +986,6 @@ MonoBehaviour:
   - {fileID: 177894913}
   - {fileID: 766930423}
   - {fileID: 496528457}
-  - {fileID: 146428226}
   - {fileID: 146428226}
   _shieldLevel: 1
 --- !u!4 &1366179108
@@ -1380,6 +1379,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon_1
       objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: collar
+      value: 
+      objectReference: {fileID: 1439941881}
     - target: {fileID: 3164142700797615970, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1435,16 +1444,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: _type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: collar
-      value: 
-      objectReference: {fileID: 1439941881}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcdb3d4b08d4a4abb867017d9c1f43a0, type: 3}
 --- !u!1 &2076648678 stripped
@@ -1557,6 +1556,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon_0
       objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
+        type: 3}
+      propertyPath: collar
+      value: 
+      objectReference: {fileID: 1946739872}
     - target: {fileID: 3164142700797615970, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1612,16 +1621,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: _type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8143725557044213582, guid: fcdb3d4b08d4a4abb867017d9c1f43a0,
-        type: 3}
-      propertyPath: collar
-      value: 
-      objectReference: {fileID: 1946739872}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcdb3d4b08d4a4abb867017d9c1f43a0, type: 3}
 --- !u!4 &1639086830127855737 stripped

@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
         public int score = 100; //earned for destroying this
         public float showDamageDuration = 0.1f;
         public float powerUpDropChance = 1f; //chance to drop a PowerUp
+        public float pushDuration = 0.2f;
+        public float pushSpeed = 4f;
+        public float speedHolder;
 
     [Header("Set Dynamically: Enemy")]
         public Color[] originalColors;
@@ -18,6 +21,8 @@ public class Enemy : MonoBehaviour
         public bool showingDamage = false;
         public float damageDoneTime;
         public bool notifiedOfDestruction = false;
+        public bool beingPushed = false;
+        public float pushDoneTime;
 
     protected BoundsCheck bndCheck;
 
@@ -30,6 +35,7 @@ public class Enemy : MonoBehaviour
         {
             originalColors[i] = materials[i].color;
         }
+        speedHolder = speed;
     }
     public Vector3 pos
     {
@@ -47,10 +53,15 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
-    if(showingDamage && Time.time > damageDoneTime)
-    {
-        UnShowDamage();
-    }
+        if(showingDamage && Time.time > damageDoneTime)
+        {
+            UnShowDamage();
+        }
+
+        if(beingPushed && Time.time > pushDoneTime)
+        {
+            UnPush();
+        }
 
         if(bndCheck != null && bndCheck.offDown)
         {
@@ -103,10 +114,22 @@ public class Enemy : MonoBehaviour
                     notifiedOfDestruction = true;
                     Destroy(this.gameObject);
                 }
+                //print(otherGO.tag);
+                Destroy(otherGO);
+                break;
+            case "ProjectilePush":
+                //Projectile pP = otherGO.GetComponent<Projectile>();
+                if(!bndCheck.isOnScreen)
+                {
+                    Destroy(otherGO);
+                    break;
+                }
+                //ShowDamage();
+                Push();
                 Destroy(otherGO);
                 break;
             default:
-                print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+                print("Enemy hit by non-Projectile: " + otherGO.name);
                 break;
         }
     }
@@ -128,5 +151,18 @@ public class Enemy : MonoBehaviour
             materials[i].color = originalColors[i];
         }
         showingDamage = false;
+    }
+
+    void Push()
+    {
+        beingPushed = true;
+        speed = pushSpeed;
+        pushDoneTime = Time.time + pushDuration;
+    }
+
+    void UnPush()
+    {
+        speed = speedHolder;
+        beingPushed = false;
     }
 }

@@ -150,14 +150,25 @@ public class Weapon : MonoBehaviour
         GameObject go = Instantiate<GameObject>(def.projectilePrefab);
         if(transform.parent.gameObject.tag == "Hero")
         {
-            go.tag = "ProjectileHero";
-            go.layer = LayerMask.NameToLayer("ProjectileHero");
+            if(go.name == "ProjectileHero")
+            {
+                //print("nay");
+                go.tag = "ProjectileHero";
+                go.layer = LayerMask.NameToLayer("ProjectileHero");
+            }
+            else if(go.name == "ProjectilePush")
+            {
+                //print("yay");
+                go.tag = "ProjectilePush";
+                go.layer = LayerMask.NameToLayer("ProjectilePush");
+            }
         }
-        else if(transform.parent.gameObject.tag == "ProjectilePush")
-        {
-            go.tag = "ProjectilePush";
-            go.layer = LayerMask.NameToLayer("ProjectilePush");
-        }
+        // else if(transform.parent.gameObject.tag == "ProjectilePush")
+        // {
+        //     print("yay?");
+        //     go.tag = "ProjectilePush";
+        //     go.layer = LayerMask.NameToLayer("ProjectilePush");
+        // }
         else
         {
             go.tag = "ProjectileEnemy";
@@ -166,8 +177,9 @@ public class Weapon : MonoBehaviour
         go.transform.position = collar.transform.position;
         go.transform.SetParent(PROJECTILE_ANCHOR,true);
         Projectile p = go.GetComponent<Projectile>();
-        print(p.name);
+        //print(type);
         p.type = type;
+        //print(p.type);
         lastShotTime = Time.time;
         return(p);
     }

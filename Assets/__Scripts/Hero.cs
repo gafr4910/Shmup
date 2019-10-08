@@ -39,7 +39,7 @@ public class Hero : MonoBehaviour
         }
         //fireDelegate += TempFire;
         ClearWeapons();
-        weapons[0].SetType(WeaponType.blaster);
+        weapons[0].SetType(WeaponType.push); //weapons[0].SetType(WeaponType.blaster);
     }
 
     // Update is called once per frame
