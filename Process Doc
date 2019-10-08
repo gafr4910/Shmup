@@ -1,0 +1,34 @@
+Initial Ideation
+
+My initial ideas included:
+  - an environmental protection game where the player would shoot garbage to protect the ocean.
+  - a furniture game where players would fire nuts and bolts at random parts of furniture to create strange furniture creations
+  - a restaurant game where players would fend off hordes of hungry customers while dogding forks, plates, and other utensils
+  - a game based on Impressionist paintings (less developed concept, more of a visual style)
+  - a game where players defend the human body from infection as the immune system
+  - a smore/shish kebab game where players would fire skewers that can pierce multiple enemies at once to gain more points
+  - a game based on Undertale, where how players defeated waves of enemies determine how future bosses and later waves behave
+  
+At first, I was going to do the shish kebab game, as the mechanic of lining up enemies and shooting skewers seemed like it 
+would be very satisfying, I turned away from this as it wouldn'tlend itself to a shmup, where players typically shoot wildly 
+into waves of enemies and don't have time to make each shot count. As I returned to ideating and considering my previous ideas,
+I wondered what it would be like if Undertale were a shmup instead of an rpg.
+
+This led to a few main ideas for game mechanics:
+  - Players would be able to choose between weapons typical of the shmup genre (blasters, lasers, etc.), and a weapon that 
+    pushes enemies slightly, but doesn't do damage. After a few hits with this weapon, enemies would become friendly and leave
+    the screen.
+  - The game would keep track of how players play; "killing" more enemies will result in harder, more aggresive bosses and
+    larger waves of enemies, while being nonviolent would make boss fights relatively easier and more about dogding.
+  - There may also be different story elements (depending on time constraints) that would create different experiences based on
+    how the player plays the game.
+
+I liked this idea particularly because I could easily imagine the Undertale characters fitting into typical sci-fi roles in a
+reimagined story based in space. This is the 
+
+
+
+Iteration 1
+
+I will build off of the IGDPAD shmup from chapters 30-31, utilizing the multiple weapon options, enemy
+types, and the general ability to customize these to make the Undertale shmup.
