@@ -10,6 +10,7 @@ public class Enemy_1 : Enemy
         public float waveRotY = 45;
         private float x0;
         private float birthTime;
+        private float y0;
         
     
     void Start()
@@ -24,8 +25,18 @@ public class Enemy_1 : Enemy
         float age = Time.time - birthTime;
         float theta = Mathf.PI * 2 * age / waveFrequency;
         float sin = Mathf.Sin(theta);
-        tempPos.x = x0 + waveWidth * sin;
-        pos = tempPos;
+        if(!isBefriended)
+        {
+            tempPos.x = x0 + waveWidth * sin;
+            pos = tempPos;
+            y0 = pos.y;
+        }
+        else
+        {
+            tempPos.y = y0 + waveWidth * sin;
+            pos = tempPos;
+        }
+        
 
         Vector3 rot = new Vector3(0, sin * waveRotY, 0);
         this.transform.rotation = Quaternion.Euler(rot);

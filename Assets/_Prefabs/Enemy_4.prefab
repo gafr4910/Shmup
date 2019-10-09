@@ -71,16 +71,24 @@ MonoBehaviour:
   score: 100
   showDamageDuration: 0.1
   powerUpDropChance: 1
+  pushDuration: 0.2
+  pushSpeed: 4
+  speedHolder: 0
+  befriendColor: {r: 0, g: 1, b: 1, a: 0}
+  friendPoints: -10
   originalColors: []
   materials: []
   showingDamage: 0
   damageDoneTime: 0
   notifiedOfDestruction: 0
+  beingPushed: 0
+  pushDoneTime: 0
   parts:
   - name: Cockpit
     health: 10
     protectedBy:
     - Fuselage
+    friendPoints: -10
     go: {fileID: 0}
     mat: {fileID: 0}
   - name: Fuselage
@@ -88,16 +96,19 @@ MonoBehaviour:
     protectedBy:
     - WingL
     - WingR
+    friendPoints: -10
     go: {fileID: 0}
     mat: {fileID: 0}
   - name: WingL
     health: 10
     protectedBy: []
+    friendPoints: -10
     go: {fileID: 0}
     mat: {fileID: 0}
   - name: WingR
     health: 10
     protectedBy: []
+    friendPoints: -10
     go: {fileID: 0}
     mat: {fileID: 0}
 --- !u!114 &1128551304344811969

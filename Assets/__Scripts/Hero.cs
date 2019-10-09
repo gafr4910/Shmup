@@ -14,10 +14,19 @@ public class Hero : MonoBehaviour
         public GameObject projectilePrefab;
         public float projectileSpeed = 40;
         public Weapon[] weapons;
+        public WeaponType[] weaponTypes;
+        ///<summary>
+        //A dictionary that saves the number of weapons that have been unlocked for each 
+        //WeaponType. The blaster and push are default, and will both be set as [1,0,0,0,0]
+        //initially. Spread and future weapons will be locked until the player first picks
+        //up that type of powerup, so they will be initialized as [0,0,0,0,0];
+        ///</summary>
+        public Dictionary<WeaponType, bool[]> weaponStates;
 
     [Header("Set Dynamically")]
         [SerializeField]
         private float _shieldLevel = 1;
+        private int activeWeapon = 0;
     
     private GameObject lastTriggerGo = null;
     
@@ -38,8 +47,24 @@ public class Hero : MonoBehaviour
             Debug.LogError("Hero.Awake() 0 Attempted to assign second Hero.S!");
         }
         //fireDelegate += TempFire;
-        ClearWeapons();
-        weapons[0].SetType(WeaponType.push); //weapons[0].SetType(WeaponType.blaster);
+        //ClearWeapons();
+        //weapons[0].SetType(WeaponType.blaster);
+        weaponStates = new Dictionary<WeaponType, bool[]>();
+        foreach (WeaponType wt in weaponTypes)
+        {
+            if(wt != WeaponType.blaster && wt != WeaponType.push)
+            {
+                bool[] arr = new bool[]{false,false,false,false,false};
+                weaponStates[wt] = arr;
+            }
+            else
+            {
+                bool[] arr = new bool[]{true,false,false,false,false};
+                weaponStates[wt] = arr;
+            }
+        }
+        SetWeapons(WeaponType.blaster);
+        print(activeWeapon);
     }
 
     // Update is called once per frame
@@ -63,6 +88,35 @@ public class Hero : MonoBehaviour
         if(Input.GetAxis("Jump") == 1 && fireDelegate != null)
         {
             fireDelegate();
+        }
+        print(activeWeapon);
+        //print(weaponTypes[activeWeapon]);
+        if(Input.GetKeyDown(KeyCode.Alpha1) )
+        {
+            // foreach(Weapon w in weapons)
+            // {
+            //     int val = (int)w.type;
+            //     w.SetType((WeaponType)((val + 1) % weapons.Length));
+            // }
+            if(activeWeapon == 0)
+            {
+                activeWeapon = weaponTypes.Length - 1;
+            }
+            else
+            {
+                activeWeapon--;
+            }
+            SetWeapons((WeaponType)activeWeapon);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            // foreach(Weapon w in weapons)
+            // {
+            //     int val = (int)w.type;
+            //     w.SetType((WeaponType)((val - 1) % weapons.Length));
+            // }
+            activeWeapon = (activeWeapon + 1) % weaponTypes.Length;
+            SetWeapons((WeaponType)activeWeapon);
         }
     }
 
@@ -114,18 +168,26 @@ public class Hero : MonoBehaviour
                 break;
             
             default:
-                if(pu.type == weapons[0].type)
+                // if(pu.type == weapons[0].type)
+                // {
+                //     Weapon w = GetEmptyWeaponSlot();
+                //     if(w != null)
+                //     {
+                //         w.SetType(pu.type);
+                //     }
+                // }
+                // else
+                // {
+                //     ClearWeapons();
+                //     weapons[0].SetType(pu.type);
+                // }
+                for(int i = 0; i < 5; i++)
                 {
-                    Weapon w = GetEmptyWeaponSlot();
-                    if(w != null)
+                    if(!weaponStates[pu.type][i])
                     {
-                        w.SetType(pu.type);
+                        weaponStates[pu.type][i] = true;
+                        break;
                     }
-                }
-                else
-                {
-                    ClearWeapons();
-                    weapons[0].SetType(pu.type);
                 }
                 break;
         }
@@ -166,6 +228,40 @@ public class Hero : MonoBehaviour
         foreach(Weapon w in weapons)
         {
             w.SetType(WeaponType.none);
+        }
+        foreach(WeaponType wt in weaponTypes)
+        {
+            print(weaponStates);
+            for(int i = 0; i < 5; i++)
+            {
+                if(wt == WeaponType.blaster && i == 0)
+                {
+                    weaponStates[wt][i] = true;
+                }
+                else if(wt == WeaponType.push && i == 0)
+                {
+                    weaponStates[wt][i] = true;
+                }
+                else
+                {
+                    weaponStates[wt][i] = false;
+                }
+            }
+        }
+    }
+
+    void SetWeapons(WeaponType wt)
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            if(weaponStates[wt][i])
+            {
+                weapons[i].SetType(wt);
+            }
+            else
+            {
+                weapons[i].SetType(WeaponType.none);
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
         public float pushDuration = 0.2f;
         public float pushSpeed = 4f;
         public float speedHolder;
+        public Color befriendColor; //Color to make part when befriended
+        public float friendPoints;
 
     [Header("Set Dynamically: Enemy")]
         public Color[] originalColors;
@@ -25,6 +27,8 @@ public class Enemy : MonoBehaviour
         public float pushDoneTime;
 
     protected BoundsCheck bndCheck;
+    protected bool isBefriended = false;
+    protected int dir;
 
     void Awake()
     {
@@ -36,6 +40,7 @@ public class Enemy : MonoBehaviour
             originalColors[i] = materials[i].color;
         }
         speedHolder = speed;
+        dir = Random.Range(0,2)*2-1;
     }
     public Vector3 pos
     {
@@ -63,17 +68,35 @@ public class Enemy : MonoBehaviour
             UnPush();
         }
 
-        if(bndCheck != null && bndCheck.offDown)
+        if(bndCheck != null && (bndCheck.offDown || bndCheck.offLeft || bndCheck.offRight))
         {
             Destroy(gameObject);
+        }
+
+        if(isBefriended)
+        {
+            foreach (Material m in materials)
+            {
+                m.color = befriendColor;
+            }
         }
     }
 
     public virtual void Move()
     {
-        Vector3 tempPos = pos;
-        tempPos.y -= speed * Time.deltaTime;
-        pos = tempPos;
+        if(!isBefriended)
+        {
+            Vector3 tempPos = pos;
+            tempPos.y -= speed * Time.deltaTime;
+            pos = tempPos;
+        }
+        else
+        {
+            speed = 20;
+            Vector3 tempPos = pos;
+            tempPos.x -= speed * Time.deltaTime * dir;
+            pos = tempPos;
+        }
     }
 
     // void OnCollisionEnter(Collision coll)
@@ -118,14 +141,19 @@ public class Enemy : MonoBehaviour
                 Destroy(otherGO);
                 break;
             case "ProjectilePush":
-                //Projectile pP = otherGO.GetComponent<Projectile>();
+                Projectile pP = otherGO.GetComponent<Projectile>();
                 if(!bndCheck.isOnScreen)
                 {
                     Destroy(otherGO);
                     break;
                 }
                 //ShowDamage();
+                friendPoints += Main.GetWeaponDefinition(pP.type).damageOnHit;
                 Push();
+                if(friendPoints >=0)
+                {
+                    isBefriended = true;
+                }
                 Destroy(otherGO);
                 break;
             default:

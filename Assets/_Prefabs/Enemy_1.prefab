@@ -253,11 +253,18 @@ MonoBehaviour:
   score: 100
   showDamageDuration: 0.1
   powerUpDropChance: 0.5
+  pushDuration: 0.2
+  pushSpeed: 4
+  speedHolder: 0
+  befriendColor: {r: 0, g: 1, b: 1, a: 1}
+  friendPoints: -4
   originalColors: []
   materials: []
   showingDamage: 0
   damageDoneTime: 0
   notifiedOfDestruction: 0
+  beingPushed: 0
+  pushDoneTime: 0
   waveFrequency: 2
   waveWidth: 4
   waveRotY: 45

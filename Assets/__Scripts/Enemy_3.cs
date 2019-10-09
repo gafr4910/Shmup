@@ -40,10 +40,17 @@ public class Enemy_3 : Enemy
             return;
         }
 
-        Vector3 p01, p12;
-        u = u - 0.2f * Mathf.Sin(u * Mathf.PI * 2);
-        p01 = (1 - u) * points[0] + u * points[1];
-        p12 = (1 - u) * points[1] + u * points[2];
-        pos = (1 - u) * p01 + u * p12;
+        if(!isBefriended)
+        {
+            Vector3 p01, p12;
+            u = u - 0.2f * Mathf.Sin(u * Mathf.PI * 2);
+            p01 = (1 - u) * points[0] + u * points[1];
+            p12 = (1 - u) * points[1] + u * points[2];
+            pos = (1 - u) * p01 + u * p12;
+        }
+        else
+        {
+            base.Move();
+        }
     }
 }

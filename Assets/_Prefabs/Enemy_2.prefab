@@ -254,11 +254,18 @@ MonoBehaviour:
   score: 100
   showDamageDuration: 0.1
   powerUpDropChance: 0.5
+  pushDuration: 0.2
+  pushSpeed: 4
+  speedHolder: 0
+  befriendColor: {r: 0, g: 1, b: 1, a: 1}
+  friendPoints: -10
   originalColors: []
   materials: []
   showingDamage: 0
   damageDoneTime: 0
   notifiedOfDestruction: 0
+  beingPushed: 0
+  pushDoneTime: 0
   sinEccentricity: 0.6
   lifeTime: 10
   p0: {x: 0, y: 0, z: 0}

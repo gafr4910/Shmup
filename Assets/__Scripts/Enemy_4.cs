@@ -12,6 +12,7 @@ public class Part
     public string name;             //The name of this object
     public float health;            //The amount of health this part has
     public string[] protectedBy;    //The other parts that protect this
+    public float friendPoints;      //The number of pushes needed to "befriend"
 
     //These two fields are set automatically in Start().
     //Caching like this makes it faster and easier to find these later
@@ -53,8 +54,21 @@ public class Enemy_4 : Enemy
         //Assign a new on-screen location to p1
         float widMinRad = bndCheck.camWidth - bndCheck.radius;
         float hgtMinRad = bndCheck.camHeight - bndCheck.radius;
-        p1.x = Random.Range(-widMinRad, widMinRad);
-        p1.y = Random.Range(-hgtMinRad, hgtMinRad);
+        //print(isBefriended);
+        if(isBefriended)
+        {
+            p1.x = Random.Range(-10, 9);
+            if(p1.x >= 0)
+            {
+                p1.x = bndCheck.camWidth + bndCheck.radius;
+            }
+            p1.y = 0;
+        }
+        else
+        {
+            p1.x = Random.Range(-widMinRad, widMinRad);
+            p1.y = Random.Range(-hgtMinRad, hgtMinRad);
+        }
 
         //Reset the time
         timeStart = Time.time;
@@ -70,8 +84,15 @@ public class Enemy_4 : Enemy
             u = 0;
         }
 
-        u = 1 - Mathf.Pow(1-u, 2);  //Apply Ease Out easing to u
-        pos = (1 - u) * p0 + u*p1;  //Simple linear interpolation
+        if(!isBefriended)
+        {
+            u = 1 - Mathf.Pow(1-u, 2);  //Apply Ease Out easing to u
+            pos = (1 - u) * p0 + u*p1;  //Simple linear interpolation
+        }
+        else
+        {
+            base.Move();
+        }
     }
 
     Part FindPart(string n)
@@ -119,6 +140,28 @@ public class Enemy_4 : Enemy
         return(prt.health <= 0);
     }
 
+    bool Befriended(GameObject go)
+    {
+        return(Befriended(FindPart(go)));
+    }
+
+    bool Befriended(string n)
+    {
+        return(Befriended(FindPart(n)));
+    }
+
+    bool Befriended(Part prt)
+    {
+        if(!prt.go.GetComponent<Collider>().enabled)     //If no real prt was passed in
+        {
+            return(true);
+        }
+        //print(prt.name + prt.friendPoints);
+        //Returns the result of the comparison: prt.friendPoints >= 0
+        //If prt.friendPoints is 0 or more, returns true (yes, it was befriended)
+        return(prt.friendPoints >= 0);
+    }
+
     //This changes the color of just one Part to red instead of the whole ship.
     void ShowLocalizedDamage(Material m)
     {
@@ -126,6 +169,25 @@ public class Enemy_4 : Enemy
         damageDoneTime = Time.time + showDamageDuration;
         showingDamage = true;
     }
+    
+    void ShowLocalizedFriendship(Material m)
+    {
+        m.color = befriendColor;
+        damageDoneTime = Time.time + showDamageDuration;
+        showingDamage = true;
+    }
+
+    // bool protectsBefriended(string[] s)
+    // {
+    //     foreach (string name in s)
+    //     {
+    //         if(FindPart(name).friendPoints < 0)
+    //         {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     //This will override the OnCollisionEnter that is part of Enemy.cs
     void OnCollisionEnter(Collision coll)
@@ -187,6 +249,69 @@ public class Enemy_4 : Enemy
                     //tell Main singleton that this ship was destroyed
                     Main.S.ShipDestroyed(this);
                     Destroy(this.gameObject);
+                }
+                Destroy(other);
+                break;
+            case "ProjectilePush":
+                Projectile p2 = other.GetComponent<Projectile>();
+                if(!bndCheck.isOnScreen)
+                {
+                    Destroy(other);
+                    break;
+                }
+                GameObject goHit2 = coll.contacts[0].thisCollider.gameObject;
+                Part prtHit2 = FindPart(goHit2);
+                //print(prtHit2.name);
+                if(prtHit2 == null)
+                {
+                    goHit = coll.contacts[0].otherCollider.gameObject;
+                    prtHit = FindPart(goHit);
+                }
+                //check whether this part is still protected
+                if(prtHit2.protectedBy != null)     // || protectsBefriended(prtHit2.protectedBy)
+                {
+                    foreach(string s in prtHit2.protectedBy)
+                    {
+                        //If one of the protecting parts hasn't been destroyed...
+                        //or befriended...
+                        if(!Destroyed(s) && !Befriended(s))
+                        {
+                            //print("not friendly");
+                            //...then don't damage this part yet
+                            Destroy(other); //Destroy ProjectileHero
+                            return;         //return before damaging Enemy_4
+                        }
+                    }
+                }
+                //It's not protected so make it take damage
+                //Get the damage amount from the projectile.type and Main.W_DEFS
+                prtHit2.friendPoints += Main.GetWeaponDefinition(p2.type).damageOnHit;
+                //Show damage on part
+                //ShowLocalizedFriendship(prtHit2.mat);
+                if(prtHit2.friendPoints >= 0)
+                {
+                    print(prtHit2.name);
+                    //Instead of destroying this enemy, disable the damaged part
+                    prtHit2.mat.color = befriendColor;
+                    if(prtHit2.go.GetComponent<Collider>().enabled)
+                    {
+                        prtHit2.go.GetComponent<Collider>().enabled = !prtHit2.go.GetComponent<Collider>().enabled;
+                    }
+                }
+                //Check to see if the whole ship is destroyed
+                bool allBefriended = true;   //assume it is destroyed
+                foreach(Part prt in parts)
+                {
+                    if(!Befriended(prt))
+                    {
+                        allBefriended = false;
+                        break;
+                    }
+                }
+                if(allBefriended)
+                {
+                    isBefriended = true;
+                    Move();
                 }
                 Destroy(other);
                 break;
