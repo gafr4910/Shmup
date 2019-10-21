@@ -32,3 +32,11 @@ Iteration 1
 
 I will build off of the IGDPAD shmup from chapters 30-31, utilizing the multiple weapon options, enemy
 types, and the general ability to customize these to make the Undertale shmup.
+
+
+
+Feedback/Halfway point:
+Didn't really get feedback as I used the time mostly as a workday. At this point, I had weapon switching mostly implemented,
+with blaster, spread, and push/befriend weapon types. From here, I needed to alter how enemies spawn (how many of each type, 
+how many total, how many must be defeated to trigger boss), finish weapon switching, add a boss, and have the game keep track
+of the number of enemies that have been destroyed and befriended.
