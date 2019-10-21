@@ -34,7 +34,7 @@ public class Enemy_4 : Enemy
     {
         p0 = p1 = pos;
         InitMovement();
-
+        print(this.name);
         //Cache GameObject & Material of each Part in parts
         Transform t;
         foreach(Part prt in parts)
@@ -46,6 +46,46 @@ public class Enemy_4 : Enemy
                 prt.mat = prt.go.GetComponent<Renderer>().material;
             }
         }
+        if(this.name == "Boss(Clone)")
+        {
+            if(Main.S.enemiesDestroyed > Main.S.enemiesBefriended)
+            {
+                print("a");
+                parts[0].health = 20;
+                parts[0].friendPoints = -10;
+                parts[1].health = 20;
+                parts[1].friendPoints = -10;
+                parts[2].health = 30;
+                parts[2].friendPoints = -20;
+                parts[3].health = 30;
+                parts[3].friendPoints = -20;
+            }
+            else if(Main.S.enemiesDestroyed < Main.S.enemiesBefriended)
+            {
+                print("b");
+                parts[0].health = 10;
+                parts[0].friendPoints = -20;
+                parts[1].health = 10;
+                parts[1].friendPoints = -20;
+                parts[2].health = 20;
+                parts[2].friendPoints = -30;
+                parts[3].health = 20;
+                parts[3].friendPoints = -30;
+            }
+            else
+            {
+                print("c");
+                parts[0].health = 15;
+                parts[0].friendPoints = -15;
+                parts[1].health = 15;
+                parts[1].friendPoints = -15;
+                parts[2].health = 25;
+                parts[2].friendPoints = -25;
+                parts[3].health = 25;
+                parts[3].friendPoints = -25;
+            }
+        }
+        print(parts[0].health + parts[1].health + parts[2].health + parts[3].health);
     }
 
     void InitMovement()
@@ -53,6 +93,7 @@ public class Enemy_4 : Enemy
         p0 = p1; //Set p0 to the old p1
         //Assign a new on-screen location to p1
         float widMinRad = bndCheck.camWidth - bndCheck.radius;
+        //print(widMinRad);
         float hgtMinRad = bndCheck.camHeight - bndCheck.radius;
         //print(isBefriended);
         if(isBefriended)
@@ -193,6 +234,7 @@ public class Enemy_4 : Enemy
     void OnCollisionEnter(Collision coll)
     {
         GameObject other = coll.gameObject;
+        //print(other.tag);
         switch(other.tag)
         {
             case "ProjectileHero":
@@ -205,6 +247,7 @@ public class Enemy_4 : Enemy
                 }
                 GameObject goHit = coll.contacts[0].thisCollider.gameObject;
                 Part prtHit = FindPart(goHit);
+                //print(goHit + ": " + prtHit);
                 if(prtHit == null)
                 {
                     goHit = coll.contacts[0].otherCollider.gameObject;
@@ -227,6 +270,7 @@ public class Enemy_4 : Enemy
                 //It's not protected so make it take damage
                 //Get the damage amount from the projectile.type and Main.W_DEFS
                 prtHit.health -= Main.GetWeaponDefinition(p.type).damageOnHit;
+                print(prtHit.health);
                 //Show damage on part
                 ShowLocalizedDamage(prtHit.mat);
                 if(prtHit.health <= 0)
@@ -238,7 +282,7 @@ public class Enemy_4 : Enemy
                 bool allDestroyed = true;   //assume it is destroyed
                 foreach(Part prt in parts)
                 {
-                    if(! Destroyed(prt))
+                    if(!Destroyed(prt))
                     {
                         allDestroyed = false;
                         break;
@@ -274,7 +318,7 @@ public class Enemy_4 : Enemy
                     {
                         //If one of the protecting parts hasn't been destroyed...
                         //or befriended...
-                        if(!Destroyed(s) && !Befriended(s))
+                        if(!Destroyed(s))
                         {
                             //print("not friendly");
                             //...then don't damage this part yet
@@ -287,7 +331,7 @@ public class Enemy_4 : Enemy
                 //Get the damage amount from the projectile.type and Main.W_DEFS
                 prtHit2.friendPoints += Main.GetWeaponDefinition(p2.type).damageOnHit;
                 //Show damage on part
-                //ShowLocalizedFriendship(prtHit2.mat);
+                ShowLocalizedFriendship(prtHit2.mat);
                 if(prtHit2.friendPoints >= 0)
                 {
                     print(prtHit2.name);
@@ -315,6 +359,32 @@ public class Enemy_4 : Enemy
                 }
                 Destroy(other);
                 break;
+            // case "Hero":
+            //     print("ok");
+            //     foreach(Part prt in parts)
+            //     {
+            //         if(prt.protectedBy.Length < 0 && prt.go.activeSelf)
+            //         {
+            //             print("yay?");
+            //             prt.go.SetActive(false);
+            //             break;
+            //         }
+            //     }
+            //     break;
         }
     }
+
+    // void HeroCollision()
+    // {
+    //     foreach(Part prt in parts)
+    //     {
+    //         print(prt.protectedBy.Length);
+    //         if(prt.protectedBy.Length < 0 && prt.go.activeSelf)
+    //         {
+    //             print("yay?");
+    //             prt.go.SetActive(false);
+    //             break;
+    //         }
+    //     }
+    // }
 }

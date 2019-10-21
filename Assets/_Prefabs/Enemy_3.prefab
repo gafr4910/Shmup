@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85968da14d79b414882bfd38185f1d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 8
   fireRate: 0.3
   health: 3
   score: 100
@@ -166,6 +166,7 @@ MonoBehaviour:
   pushDuration: 0.2
   pushSpeed: 4
   speedHolder: 0
+  pushColor: {r: 0, g: 1, b: 1, a: 0}
   befriendColor: {r: 0, g: 1, b: 1, a: 1}
   friendPoints: -3
   originalColors: []

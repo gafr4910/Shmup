@@ -257,8 +257,9 @@ MonoBehaviour:
   pushDuration: 0.2
   pushSpeed: 4
   speedHolder: 0
+  pushColor: {r: 0, g: 1, b: 1, a: 0.39215687}
   befriendColor: {r: 0, g: 1, b: 1, a: 1}
-  friendPoints: -10
+  friendPoints: -5
   originalColors: []
   materials: []
   showingDamage: 0

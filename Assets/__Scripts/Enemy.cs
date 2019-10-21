@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
         public float pushDuration = 0.2f;
         public float pushSpeed = 4f;
         public float speedHolder;
+        public Color pushColor;
         public Color befriendColor; //Color to make part when befriended
         public float friendPoints;
 
@@ -25,9 +26,10 @@ public class Enemy : MonoBehaviour
         public bool notifiedOfDestruction = false;
         public bool beingPushed = false;
         public float pushDoneTime;
+        public Vector3 befriendPos;
 
     protected BoundsCheck bndCheck;
-    protected bool isBefriended = false;
+    public bool isBefriended = false;
     protected int dir;
 
     void Awake()
@@ -57,6 +59,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
+        //print(friendPoints);
 
         if(showingDamage && Time.time > damageDoneTime)
         {
@@ -70,6 +73,11 @@ public class Enemy : MonoBehaviour
 
         if(bndCheck != null && (bndCheck.offDown || bndCheck.offLeft || bndCheck.offRight))
         {
+            if(!notifiedOfDestruction)
+            {
+                Main.S.ShipDestroyed(this);
+            }
+            notifiedOfDestruction = true;
             Destroy(gameObject);
         }
 
@@ -116,6 +124,7 @@ public class Enemy : MonoBehaviour
     void OnCollisionEnter(Collision coll)
     {
         GameObject otherGO = coll.gameObject;
+        //print(gameObject.tag);
         switch(otherGO.tag)
         {
             case "ProjectileHero":
@@ -153,6 +162,7 @@ public class Enemy : MonoBehaviour
                 if(friendPoints >=0)
                 {
                     isBefriended = true;
+                    befriendPos = transform.position;
                 }
                 Destroy(otherGO);
                 break;
@@ -186,11 +196,19 @@ public class Enemy : MonoBehaviour
         beingPushed = true;
         speed = pushSpeed;
         pushDoneTime = Time.time + pushDuration;
+        foreach(Material m in materials)
+        {
+            m.color = pushColor;
+        }
     }
 
     void UnPush()
     {
         speed = speedHolder;
         beingPushed = false;
+        for(int i = 0; i < materials.Length; i++)
+        {
+            materials[i].color = originalColors[i];
+        }
     }
 }

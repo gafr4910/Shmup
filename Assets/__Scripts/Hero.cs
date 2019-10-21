@@ -64,7 +64,7 @@ public class Hero : MonoBehaviour
             }
         }
         SetWeapons(WeaponType.blaster);
-        print(activeWeapon);
+        //print(activeWeapon);
     }
 
     // Update is called once per frame
@@ -89,8 +89,9 @@ public class Hero : MonoBehaviour
         {
             fireDelegate();
         }
-        print(activeWeapon);
-        //print(weaponTypes[activeWeapon]);
+        //print(activeWeapon + ": " + weaponTypes[activeWeapon]);
+        //print(weaponTypes[2]);
+        //print(weaponTypes.Length);
         if(Input.GetKeyDown(KeyCode.Alpha1) )
         {
             // foreach(Weapon w in weapons)
@@ -106,7 +107,7 @@ public class Hero : MonoBehaviour
             {
                 activeWeapon--;
             }
-            SetWeapons((WeaponType)activeWeapon);
+            SetWeapons(weaponTypes[activeWeapon]);
         }
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -116,7 +117,7 @@ public class Hero : MonoBehaviour
             //     w.SetType((WeaponType)((val - 1) % weapons.Length));
             // }
             activeWeapon = (activeWeapon + 1) % weaponTypes.Length;
-            SetWeapons((WeaponType)activeWeapon);
+            SetWeapons(weaponTypes[activeWeapon]);
         }
     }
 
@@ -186,6 +187,10 @@ public class Hero : MonoBehaviour
                     if(!weaponStates[pu.type][i])
                     {
                         weaponStates[pu.type][i] = true;
+                        if(pu.type == weaponTypes[activeWeapon])
+                        {
+                            SetWeapons(pu.type);
+                        }
                         break;
                     }
                 }

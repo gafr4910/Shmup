@@ -822,6 +822,7 @@ MonoBehaviour:
   - {fileID: 3600167150106940752, guid: 5231fc23ec36b46ea9c6870c08debc61, type: 3}
   - {fileID: 3600167150106940752, guid: 5231fc23ec36b46ea9c6870c08debc61, type: 3}
   - {fileID: 1257306266267927118, guid: a13795d41689f41db845a9dd009d0c1e, type: 3}
+  boss: {fileID: 1470563756078042508, guid: a3152b832fa6143f39219a441924335e, type: 3}
   enemySpawnPerSecond: 0.5
   enemyDefaultPadding: 1.5
   weaponDefinitions:
@@ -867,11 +868,18 @@ MonoBehaviour:
     damageOnHit: 1
     pushOnHit: 1
     continuousDamage: 0
-    delayBetweenShots: 0.4
+    delayBetweenShots: 0.6
     velocity: 40
   prefabPowerUp: {fileID: 4884892186835549992, guid: 7a9453e19175d45728169a650bf10f56,
     type: 3}
   powerUpFrequency: 010000000100000002000000060000000700000007000000
+  maxEnemies: 10
+  enemyTypeMaxes: 0a000000050000000300000002000000
+  enemiesToBeat: 30
+  enemyNumbers: 
+  totalEnemiesBeaten: 0
+  enemiesDestroyed: 0
+  enemiesBefriended: 0
 --- !u!114 &1073965014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,7 +1074,7 @@ MonoBehaviour:
   - {fileID: 496528457}
   - {fileID: 146428226}
   weaponTypes: 010000000200000007000000
-  _shieldLevel: 1
+  _shieldLevel: 8
 --- !u!4 &1366179108
 Transform:
   m_ObjectHideFlags: 0
