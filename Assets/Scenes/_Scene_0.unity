@@ -1074,7 +1074,7 @@ MonoBehaviour:
   - {fileID: 496528457}
   - {fileID: 146428226}
   weaponTypes: 010000000200000007000000
-  _shieldLevel: 8
+  _shieldLevel: 3
 --- !u!4 &1366179108
 Transform:
   m_ObjectHideFlags: 0
